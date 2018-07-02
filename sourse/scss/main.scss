@@ -1,0 +1,23 @@
+@import "libs";
+@import "font";
+@import "vars";
+
+body {
+	color: $text;
+	font-size: 18px;
+	min-width: 320px;
+	position: relative;
+	line-height: 1.65;
+	font-family: $font-family-default;
+	overflow-x: hidden;
+	h1 {
+			font-size: 24px;
+			color: $accent;
+			transition: .35s;
+	}
+}
+
+
+
+
+
