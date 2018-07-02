@@ -1,47 +1,65 @@
 @import "vars";
 
-
 /*==========  Desktop First  ==========*/
 
-// ≥1200px
-@include media-breakpoint-down(lg) {
-	
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px) {
+	/**/
 }
 
-// ≥992px
-@include media-breakpoint-down(md) {
 
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+	/**/
 }
 
-// ≥768px
-@include media-breakpoint-down(sm) {
 
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+	/**/
 }
 
-// ≥576px
-@include media-breakpoint-down(xs) {
 
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px) {
+	/**/
+}
+
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width : 320px) {
+	/**/
 }
 
 
 /*==========  Mobile First  ==========*/
 
-// ≤576px
-@include media-breakpoint-up(sm) {
-
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 320px) {
+	/**/
 }
 
-// ≤768px
-@include media-breakpoint-up(md) {
 
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) {
+	/**/
 }
 
-// ≤992px
-@include media-breakpoint-up(lg) {
 
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+	/**/
 }
 
-// ≤1200px
-@include media-breakpoint-up(xl) {
-	
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+	/**/
 }
+
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+	/**/
+}
+
