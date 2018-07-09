@@ -15,7 +15,7 @@ var gulp = require('gulp'),
 
 //html
 gulp.task('html', function() {
-	return gulp.src('source/**/*.html')
+	return gulp.src('source/*.html')
 	.pipe(livereload({ start: true }));
 });
 
@@ -42,15 +42,15 @@ gulp.task('js', function() {
 });
 
 //watch
-gulp.task('watch', gulp.series('html', 'sass', 'js', function() {
+gulp.task('watch', function() {
 	livereload.listen();
 	gulp.watch('source/**/*.html', gulp.series('html'));
 	gulp.watch('source/scss/**/*.scss', gulp.series('sass'));
 	gulp.watch('source/js/common.js', gulp.series('js'));
-}));
+});
 
 //default
-gulp.task('default', gulp.series('watch'));
+gulp.task('default', gulp.series('sass', 'js', 'html', 'watch'));
 
 //clear cache
 gulp.task('clear', function() {
@@ -59,7 +59,7 @@ gulp.task('clear', function() {
 
 //minify img
 gulp.task('img', function() {
-	return gulp.src('source/image/**/*')
+	return gulp.src('source/image/**/*.*')
 	.pipe(cache(imagemin({ 
 		interlaced: true,
 		progressive: true,
@@ -70,21 +70,41 @@ gulp.task('img', function() {
 });
 
 //clean foulder web
-gulp.task('clean', function(done) {
-  del(['.web/'], done);
+gulp.task('clean', function() {
+  return del([ 'web/*' ]);
 });
 
 //build
-gulp.task('build', gulp.parallel('clean', 'js', 'img', function() {
-	var buildHtml = gulp.src('source/*.html')
-	.pipe(gulp.dest('web'));
-	var buildSass = gulp.src('source/css/main.min.css')
-	.pipe(gulp.dest('web/css'));
-	var buildJs = gulp.src('source/js/scripts.min.js')
-	.pipe(gulp.dest('web/js'));
-	var buildFonts = gulp.src('source/fonts/**/*')
-	.pipe(gulp.dest('web/fonts'));
-	var buildOther = gulp.src([
-		'source/ht.access'])
-	.pipe(gulp.dest('web'));
-}));
+gulp.task('buildIndexHtml', function() {
+  return gulp.src('source/*.html').pipe(gulp.dest('web'));
+});
+
+gulp.task('buildSass', function() {
+  return gulp.src('source/css/main.min.css').pipe(gulp.dest('web/css'));
+});
+
+gulp.task('buildJs', function() {
+  return gulp.src('source/js/scripts.min.js').pipe(gulp.dest('web/js'));
+});
+
+gulp.task('buildImage', function() {
+  return gulp.src('source/image/*').pipe(gulp.dest('web/image'));
+});
+
+gulp.task('buildFonts', function() {
+  return gulp.src('source/fonts/**/*.*').pipe(gulp.dest('web/fonts'));
+});
+
+gulp.task('buildOther', function() {
+  return gulp.src(['source/ht.access']).pipe(gulp.dest('web'));
+});
+
+gulp.task('build', gulp.series('clean', 'img', gulp.parallel([
+  'buildIndexHtml',
+  'buildSass',
+  'buildJs',
+  'buildImage',
+  'buildFonts',
+  'buildOther'
+  ])));
+
